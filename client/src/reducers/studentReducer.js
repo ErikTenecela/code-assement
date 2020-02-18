@@ -2,8 +2,7 @@ import {
   GET_STUDENTS,
   ADD_STUDENT,
   DELETE_STUDENT,
-  STUDENT_LOADING,
-  EDIT_STUDENT
+  STUDENT_LOADING
 } from "../actions/types";
 
 const initalState = {
@@ -19,11 +18,6 @@ export default function(state = initalState, action) {
         studentName: action.payload,
         loading: false
       };
-    // case EDIT_STUDENT:
-    //   return {
-    //     ...state,
-    //     studentName: state.studentName.
-    //   };
     case DELETE_STUDENT:
       return {
         ...state,

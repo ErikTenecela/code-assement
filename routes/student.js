@@ -16,32 +16,35 @@ router.get("/", (req, res) => {
 // @route POST api/students
 //@des Create A POST
 //@access
-router.post("/", auth, (req, res) => {
+router.post("/", (req, res) => {
   const { name, subjectCount, scoreAverage } = req.body;
-  const newStudent = new Student({
-    name,
-    subjectCount,
-    scoreAverage
-  });
-  newStudent
-    .save()
-    .then(student => res.json(student))
-    .catch(e => res.json({ msg: e.message }));
+  if (!name || !subjectCount || !ScoreAverage) {
+    return res.status(400).json({ msg: "Please enter all fields" });
+  } else {
+    const newStudent = new Student({
+      name,
+      subjectCount,
+      scoreAverage
+    });
+    newStudent
+      .save()
+      .then(student => res.json(student))
+      .catch(e => res.json({ msg: e.message }));
+  }
 });
-//PUT /api/students/id
-//replacing the values in the DB
-//currently not finsihed
-router.put("/:id", auth, (req, res) => {
+//PATCH /api/students/id
+//Updated the values in the DB
+//Private Route
+router.patch("/:id", auth, async (req, res) => {
   const { name, subjectCount, scoreAverage } = req.body;
-  const newStudent = new Student({
-    name,
-    subjectCount,
-    scoreAverage
-  });
-  newStudent
-    .save()
-    .then(student => res.json(student))
-    .catch(e => res.json({ msg: e.message }));
+  const { id } = req.params;
+  const updatedInfo = await Student.updateOne(
+    {
+      _id: id
+    },
+    { $set: { name, subjectCount, scoreAverage } }
+  );
+  res.json(updatedInfo);
 });
 
 // DELETE api/student/id

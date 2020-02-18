@@ -2,8 +2,7 @@ import {
   GET_STUDENTS,
   ADD_STUDENT,
   DELETE_STUDENT,
-  STUDENT_LOADING,
-  EDIT_STUDENT
+  STUDENT_LOADING
 } from "../actions/types";
 import { tokenConfig } from "../actions/authAction";
 import { returnErrors } from "./errorAction";
@@ -52,20 +51,6 @@ export const deleteStudent = id => (dispatch, getState) => {
       dispatch(returnErrors(err.response.data, err.response.status))
     );
 };
-//Edit User name
-// export const editStudents = id => (dispatch, getState) => {
-//   axios
-//     .delete(`/api/students/${id}`, tokenConfig(getState))
-//     .then(res =>
-//       dispatch({
-//         type: EDIT_STUDENT,
-//         payload: id
-//       })
-//     )
-//     .catch(err =>
-//       dispatch(returnErrors(err.response.data, err.response.status))
-//     );
-// };
 //sending the studeing laoding to the reducer which it calls it true in the studentReducer
 export const setStudentsLoading = () => {
   return {

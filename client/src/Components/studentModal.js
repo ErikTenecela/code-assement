@@ -7,7 +7,8 @@ import {
   Form,
   FormGroup,
   Label,
-  Input
+  Input,
+  Alert
 } from "reactstrap";
 
 import { connect } from "react-redux";
@@ -24,6 +25,7 @@ class StudentModal extends Component {
   static propTypes = {
     isAuthenticated: PropTypes.bool
   };
+
   toggle = () => {
     this.setState({
       modal: !this.state.modal
@@ -38,17 +40,21 @@ class StudentModal extends Component {
   onSubmit = e => {
     e.preventDefault();
     const { name, subjectCount, scoreAverage } = this.state;
-    const newStudent = {
-      name,
-      subjectCount,
-      scoreAverage
-    };
+    if (!name || !subjectCount || !scoreAverage) {
+      alert(`Please enter all fields`);
+    } else {
+      const newStudent = {
+        name,
+        subjectCount,
+        scoreAverage
+      };
 
-    //Add Student via addStudent action
-    this.props.addStudent(newStudent);
+      //Add Student via addStudent action
+      this.props.addStudent(newStudent);
 
-    //Close modal
-    this.toggle();
+      //Close modal
+      this.toggle();
+    }
   };
 
   render() {
@@ -109,7 +115,8 @@ class StudentModal extends Component {
 
 const mapStateToProps = state => ({
   student: state.studentName,
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  error: state.error
 });
 
 export default connect(mapStateToProps, { addStudent })(StudentModal);
