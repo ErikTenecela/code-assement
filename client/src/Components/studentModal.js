@@ -42,19 +42,18 @@ class StudentModal extends Component {
     const { name, subjectCount, scoreAverage } = this.state;
     if (!name || !subjectCount || !scoreAverage) {
       alert(`Please enter all fields`);
-    } else {
-      const newStudent = {
-        name,
-        subjectCount,
-        scoreAverage
-      };
-
-      //Add Student via addStudent action
-      this.props.addStudent(newStudent);
-
-      //Close modal
-      this.toggle();
     }
+    const newStudent = {
+      name,
+      subjectCount,
+      scoreAverage
+    };
+
+    //Add Student via addStudent action
+    this.props.addStudent(newStudent);
+
+    //Close modal
+    this.toggle();
   };
 
   render() {

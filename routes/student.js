@@ -16,9 +16,9 @@ router.get("/", (req, res) => {
 // @route POST api/students
 //@des Create A POST
 //@access
-router.post("/", (req, res) => {
+router.post("/", auth, (req, res) => {
   const { name, subjectCount, scoreAverage } = req.body;
-  if (!name || !subjectCount || !ScoreAverage) {
+  if (!name || !subjectCount || !scoreAverage) {
     return res.status(400).json({ msg: "Please enter all fields" });
   } else {
     const newStudent = new Student({
