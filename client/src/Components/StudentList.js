@@ -20,10 +20,6 @@ export class StudentList extends Component {
     this.props.deleteStudent(id);
   };
 
-  onEditStudent = id => {
-    this.props.editStudents(id);
-  };
-
   render() {
     const { studentName } = this.props.studentName;
     return (
